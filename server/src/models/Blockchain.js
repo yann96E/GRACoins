@@ -1,6 +1,5 @@
 import mongoose from "mongoose"
-import { Blockchain, Block } from "../blockchain/Blockchain";
-import BlockSchema from "./Block"
+import { BlockSchema } from "./Block"
 
 export const BlockChainSchema = new mongoose.Schema({
     chain: {

@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  gra-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: nodejs
+    # container_name: gra-server
+    restart: unless-stopped
+    # env_file: .env
+    # environment:
+    #   - MONGO_USERNAME=$MONGO_USERNAME
+    #   - MONGO_PASSWORD=$MONGO_PASSWORD
+    #   - MONGO_HOSTNAME=db
+    #   - MONGO_PORT=$MONGO_PORT
+    #   - MONGO_DB=$MONGO_DB
+    ports:
+      - "8090:8090"
+    volumes:
+      - .:/home/yann/EPITECH/Jam/test/server
+      - node_modules:/home/yann/EPITECH/Jam/test/server/node_modules
+    # networks:
+    #   - app-network
+    command: yarn dev
+
+  vue-ui:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    # container_name: vue-ui
+    volumes:
+      - .:/home/yann/EPITECH/Jam/test/client
+      - node_modules_:/home/yann/EPITECH/Jam/test/client/node_modules
+    command: yarn serve
+
+  mongo:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+
+volumes:
+  node_modules:
+  node_modules_:

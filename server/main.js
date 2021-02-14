@@ -19,7 +19,7 @@ app.use(express.json());
  * Method - *
  */
 app.use("/user", UserRoute);
-app.use("/blockchain", Routeé);
+app.use("/blockchain", Route);
 
 app.get("/", (req, res) => {
   res.json({ message: "API Working" });

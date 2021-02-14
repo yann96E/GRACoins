@@ -1,8 +1,6 @@
 import express from "express"
-import * as customers from "../controllers/user.controller"
 import { User } from "../models/User";
 import { createTransaction } from "../blockchain/Transactions"
-import { Transaction } from "../models/Blockchain"
 import { auth } from "../middleware/auth"
 
 const Router = express.Router()
