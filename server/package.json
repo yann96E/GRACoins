@@ -1,0 +1,36 @@
+{
+  "name": "gorilla-coins",
+  "version": "1.0.0",
+  "description": "Crypto environement",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Patrick-devellopement/Gorilla-coins.git"
+  },
+  "author": "Patrick Eiermann",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Patrick-devellopement/Gorilla-coins/issues"
+  },
+  "homepage": "https://github.com/Patrick-devellopement/Gorilla-coins#readme",
+  "dependencies": {
+    "b": "^2.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "elliptic": "^6.5.4",
+    "express": "^4.17.1",
+    "express-validator": "^6.9.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.16",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16"
+  }
+}
