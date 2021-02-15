@@ -41,4 +41,5 @@ export const createBlock = (transactions, previousHash = '') => ({
     nonce: 0,
     hash: calculateHash()  
 })
-  
+
+export const coinValue = 1.26

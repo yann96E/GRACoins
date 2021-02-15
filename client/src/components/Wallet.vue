@@ -12,7 +12,7 @@
                             </v-list-item>
                             <v-card-text>
                                 <v-row align="center">
-                                    <v-col class="display-1" cols="6">{{ gra.amount }} <b>{{ gra.alt }}</b></v-col>
+                                    <v-col v-if="this.user !== 'undefined'" class="display-1" cols="6">{{ this.user.amount }} <b>{{ gra.alt }}</b></v-col>
                                     <v-col cols="6">
                                     <v-img :src="gra.logo" width="86"></v-img>
                                     </v-col>
@@ -34,8 +34,8 @@
                                     <v-col class="display-1" cols="6">
                                         <v-list-item two-line>
                                             <v-list-item-content>
-                                                <v-list-item-title class="text-h5 font-weight-bold">{{ gra.amount * gra.value }}€</v-list-item-title>
-                                                <v-list-item-subtitle class="text-h6 light-green--text">24h: <b>+ {{ Math.ceil((gra.amount * gra.value) - wallet.yesterday) }}€</b></v-list-item-subtitle>
+                                                <v-list-item-title v-if="this.coinValue !== 'undefined'" class="text-h5 font-weight-bold">{{ this.coinValue }}€</v-list-item-title>
+                                                <v-list-item-subtitle class="text-h6 light-green--text">24h: <b>+ 0€</b></v-list-item-subtitle>
                                             </v-list-item-content>
                                         </v-list-item>
                                     </v-col>
@@ -56,7 +56,7 @@
                             </v-list-item-content>
                             </v-list-item>
                             <v-card-text>
-                                <v-card-text class="headline font-weight-light">1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX</v-card-text>
+                                <v-card-text v-if="this.user !== 'undefined'" class="headline font-weight-light">{{ this.user.walletAddress }}</v-card-text>
                             </v-card-text>
                         </v-card>
                     </v-item>
@@ -67,13 +67,23 @@
 </template>
 
 <script>
+import { baseUrl } from "../main"
+
 export default {
-    name: "Wallet",
-    data() {
-        return {
-            gra: { name: ' Gorilla', amount: 538.5, alt: '$GRA', value: 1.26, logo: 'https://media.discordapp.net/attachments/809369898983358495/809939678098751508/logo_epitech_jam.png'},
-            wallet: { yesterday: 571.6}
-        };
-    },
+  name: "Wallet",
+
+  async beforeCreate() {
+    this.user = await fetch(`${baseUrl}/me`, { method: 'GET'}).then(req => req.json())
+    this.coinValue = await fetch(`${baseUrl}/get-coin-value`, { method: 'GET'}).then(req => req.json())
+    this.sum = this.user.amount * this.coinValue
+  },
+
+  data() {
+      return {
+          gra: { name: ' Gorilla', amount: 538.5, alt: '$GRA', value: 1.26, logo: 'https://media.discordapp.net/attachments/809369898983358495/809939678098751508/logo_epitech_jam.png'},
+          wallet: { yesterday: 571.6}
+      };
+  },
 }
 </script>
+-

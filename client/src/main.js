@@ -4,6 +4,8 @@ import router from './router';
 import vuetify from './plugins/vuetify';
 import '@babel/polyfill';
 
+export const baseUrl = "http://localhost:8090"
+
 Vue.config.productionTip = false;
 
 new Vue({

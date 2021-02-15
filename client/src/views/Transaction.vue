@@ -15,13 +15,13 @@
                                                 <p class="title font-weight-normal">Adresse: </p>
                                             </v-row>
                                             <v-row align="center">
-                                                <p class="subtitle font-weight-light">1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX</p>
+                                                <p v-if="this.user !== 'undefined'" class="subtitle font-weight-light">{{ this.user.walletAddress }}</p>
                                             </v-row>
                                             <v-row align="center">
                                                 <p class="title font-weight-normal">Solde: </p>
                                             </v-row>
                                             <v-row align="center">
-                                                <p class="subtitle font-weight-light">538.5 $GRA (678.51€)</p>
+                                                <p v-if="this.user !== 'undefined'" class="subtitle font-weight-light">{{ this.user.amount }} $GRA ({{ this.user.sum }}€)</p>
                                             </v-row>
                                         </v-card-text>
                                     </v-card>
@@ -72,5 +72,12 @@ export default {
         Navbar,
         Footer
     },
+
+    async beforeCreate() {
+      this.user = await fetch(`${baseUrl}/me`, { method: 'GET'}).then(req => req.json())
+      this.coinValue = await fetch(`${baseUrl}/get-coin-value`, { method: 'GET'}).then(req => req.json())
+      this.sum = this.user.amount * this.coinValue
+    },
+
 };
 </script>
