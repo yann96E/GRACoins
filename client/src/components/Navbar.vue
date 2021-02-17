@@ -1,9 +1,16 @@
 <template>
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
         dark
         app
         class="grey darken-4"
         :mini-variant="mini"
+        mini-variant-width="62px"
+        expand-on-hover
+    > -->
+    <v-navigation-drawer
+        dark
+        app
+        class="grey darken-4"
         mini-variant-width="62px"
         expand-on-hover
     >

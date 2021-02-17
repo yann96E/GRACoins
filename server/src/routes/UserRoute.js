@@ -78,5 +78,12 @@ Router.get("/me", auth, async (req, res) => {
       res.send({ message: "Error in Fetching user" });
   }
 });
+
+Router.get("get-fake-token", async (req, res) => {
+  return jwt.sign(payload, "randomString", { expiresIn: 100000000 }, (err, token) => {
+    if (err) throw err;
+    res.status(200).json({token});
+  })
+})
   
 export { Router as default };

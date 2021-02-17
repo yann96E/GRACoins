@@ -2,7 +2,7 @@
     <v-app>
         <Navbar />
         <v-main style="background: rgb(2,0,36);background: linear-gradient(126deg,rgba(2,0,36,1) 0%, rgba(163,0,244,1) 100%, rgba(0,212,255,1) 100%);">
-            <div class="mt-5 text-center ml-10 mr-10 pl-10 pr-10 pb-10">
+            <!-- <div class="mt-5 text-center ml-10 mr-10 pl-10 pr-10 pb-10">
                 <h1 class="text-h1 font-weight-medium mb-5 white--text">Transaction</h1>
                 <v-item-group class="mb-10 pb-10" style="padding-top: 10%;">
                     <v-container elevation-15>
@@ -57,7 +57,7 @@
                     </v-container>
                 </v-item-group>
             </div>
-            <Footer/>
+            <Footer/> -->
         </v-main>
     </v-app>
 </template>
@@ -65,6 +65,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
+import { baseUrl } from "../main"
 
 export default {
     name: 'Transaction',
@@ -73,9 +74,17 @@ export default {
         Footer
     },
 
-    async beforeCreate() {
-      this.user = await fetch(`${baseUrl}/me`, { method: 'GET'}).then(req => req.json())
-      this.coinValue = await fetch(`${baseUrl}/get-coin-value`, { method: 'GET'}).then(req => req.json())
+    async created() {
+      this.token = await fetch(`${baseUrl}/get-fake-token`).then(req => req.json())
+      let headers = {"Content-Type": "application/json"};
+      if (this.token) {
+        headers["Authorization"] = `Token ${this.token}`;
+        headers["method"] = 'GET';
+      }
+      this.user = await fetch(`${baseUrl}/me`, {headers}).then(req => req.json())
+      console.info(this.user)
+      this.coinValue = await fetch(`${baseUrl}/get-coin-value`, {headers}).then(req => req.json())
+      console.info(this.coinValue)
       this.sum = this.user.amount * this.coinValue
     },
 
